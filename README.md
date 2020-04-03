@@ -52,7 +52,7 @@ This is a very handy tool that allows us to remove Windows components with a sin
 * We will also need PowerShell, so click start, type ``PowerShell`` and run it as administrator
 ![](https://raw.githubusercontent.com/adolfintel/Windows10-Privacy/master/data/ps1809_1.jpg)
 
-# Block automatic installation of apps
+### Block automatic installation of apps
 
 `reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SilentInstalledAppsEnabled /t REG_DWORD /d 0 /f`
 
