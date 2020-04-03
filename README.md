@@ -52,6 +52,10 @@ This is a very handy tool that allows us to remove Windows components with a sin
 * We will also need PowerShell, so click start, type ``PowerShell`` and run it as administrator
 ![](https://raw.githubusercontent.com/adolfintel/Windows10-Privacy/master/data/ps1809_1.jpg)
 
+# Block automatic installation of apps
+
+`reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SilentInstalledAppsEnabled /t REG_DWORD /d 0 /f`
+
 ## Removing Windows Defender
 In the command prompt, type the following commands:
 ```
@@ -98,7 +102,6 @@ reg add "HKLM\Software\Policies\Microsoft\WindowsStore" /v RemoveWindowsStore /t
 reg add "HKLM\Software\Policies\Microsoft\WindowsStore" /v DisableStoreApps /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\AppHost" /v "EnableWebContentEvaluation" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\PushToInstall" /v DisablePushToInstall /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SilentInstalledAppsEnabled /t REG_DWORD /d 0 /f
 sc delete PushToInstall
 ```
 
