@@ -60,6 +60,10 @@ This is a very handy tool that allows us to remove Windows components with a sin
 
 `reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe" /v Debugger /t REG_SZ /d "%windir%\System32\taskkill.exe" /f`
 
+### Disable Diagnostics Tracking Service
+
+`sc delete DiagTrack`
+
 ## Removing Windows Defender
 In the command prompt, type the following commands:
 ```
