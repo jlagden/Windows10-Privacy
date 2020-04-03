@@ -64,6 +64,57 @@ This is a very handy tool that allows us to remove Windows components with a sin
 
 `sc delete DiagTrack`
 
+### Disable sync
+It doesn't really affect you if you're not using a Microsoft Account, but it will at least disable the Sync settings from the Settings app.  
+In the command prompt, type:
+```
+reg add "HKLM\Software\Policies\Microsoft\Windows\SettingSync" /v DisableSettingSync /t REG_DWORD /d 2 /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\SettingSync" /v DisableSettingSyncUserOverride /t REG_DWORD /d 1 /f
+```
+### Scheduled tasks
+Windows 10 has a huge amount of scheduled tasks that may report some data. Type these commands in the command prompt to remove them:
+```
+schtasks /Change /TN "Microsoft\Windows\AppID\SmartScreenSpecific" /disable
+schtasks /Change /TN "Microsoft\Windows\Application Experience\AitAgent" /disable
+schtasks /Change /TN "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /disable
+schtasks /Change /TN "Microsoft\Windows\Application Experience\ProgramDataUpdater" /disable
+schtasks /Change /TN "Microsoft\Windows\Application Experience\StartupAppTask" /disable
+schtasks /Change /TN "Microsoft\Windows\Autochk\Proxy" /disable
+schtasks /Change /TN "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /disable
+schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\BthSQM" /disable
+schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /disable
+schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask" /disable
+schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\Uploader" /disable
+schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /disable
+schtasks /Change /TN "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /disable
+schtasks /Change /TN "Microsoft\Windows\DiskFootprint\Diagnostics" /disable
+schtasks /Change /TN "Microsoft\Windows\FileHistory\File History (maintenance mode)" /disable
+schtasks /Change /TN "Microsoft\Windows\Maintenance\WinSAT" /disable
+schtasks /Change /TN "Microsoft\Windows\PI\Sqm-Tasks" /disable
+schtasks /Change /TN "Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /disable
+schtasks /Change /TN "Microsoft\Windows\Shell\FamilySafetyMonitor" /disable
+schtasks /Change /TN "Microsoft\Windows\Shell\FamilySafetyRefresh" /disable
+schtasks /Change /TN "Microsoft\Windows\Shell\FamilySafetyUpload" /disable
+schtasks /Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /disable
+schtasks /Change /TN "Microsoft\Windows\WindowsUpdate\Automatic App Update" /disable
+schtasks /Change /TN "Microsoft\Windows\License Manager\TempSignedLicenseExchange" /disable
+schtasks /Change /TN "Microsoft\Windows\Clip\License Validation" /disable
+schtasks /Change /TN "\Microsoft\Windows\ApplicationData\DsSvcCleanup" /disable
+schtasks /Change /TN "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /disable
+schtasks /Change /TN "\Microsoft\Windows\PushToInstall\LoginCheck" /disable
+schtasks /Change /TN "\Microsoft\Windows\PushToInstall\Registration" /disable
+schtasks /Change /TN "\Microsoft\Windows\Shell\FamilySafetyMonitor" /disable
+schtasks /Change /TN "\Microsoft\Windows\Shell\FamilySafetyMonitorToastTask" /disable
+schtasks /Change /TN "\Microsoft\Windows\Shell\FamilySafetyRefreshTask" /disable
+schtasks /Change /TN "\Microsoft\Windows\Subscription\EnableLicenseAcquisition" /disable
+schtasks /Change /TN "\Microsoft\Windows\Subscription\LicenseAcquisition" /disable
+schtasks /Change /TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner" /disable
+schtasks /Change /TN "\Microsoft\Windows\Diagnosis\Scheduled" /disable
+schtasks /Change /TN "\Microsoft\Windows\NetTrace\GatherNetworkInfo" /disable
+del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\SettingSync\*" 
+```
+Some of these may not exist, it's fine.
+
 ## Removing Windows Defender
 In the command prompt, type the following commands:
 ```
@@ -338,13 +389,6 @@ In the command prompt, type:
 reg add "HKLM\Software\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" /v NoGenTicket /t REG_DWORD /d 1 /f
 ```
 
-### Disable sync
-It doesn't really affect you if you're not using a Microsoft Account, but it will at least disable the Sync settings from the Settings app.  
-In the command prompt, type:
-```
-reg add "HKLM\Software\Policies\Microsoft\Windows\SettingSync" /v DisableSettingSync /t REG_DWORD /d 2 /f
-reg add "HKLM\Software\Policies\Microsoft\Windows\SettingSync" /v DisableSettingSyncUserOverride /t REG_DWORD /d 1 /f
-```
 
 ### No Windows Tips
 In the command prompt, type:
@@ -410,49 +454,7 @@ These keys have messed up permissions. To delete them, we must fix them, here's 
 Right click the key and select Permissions, then click Advanced, change the Owner to your username, check "Replace owner on subcontainers and objects" and "Replace all child object permission entries with inheritable permission entries from this object", if inheritance is enabled, disable it and convert to explicit permissions, apply, remove all the permission entries and add one for your username with Full control, confirm everything and delete the key.  
 Repeat for the 3 keys and you're done.
 
-### Scheduled tasks
-Windows 10 has a huge amount of scheduled tasks that may report some data. Type these commands in the command prompt to remove them:
-```
-schtasks /Change /TN "Microsoft\Windows\AppID\SmartScreenSpecific" /disable
-schtasks /Change /TN "Microsoft\Windows\Application Experience\AitAgent" /disable
-schtasks /Change /TN "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /disable
-schtasks /Change /TN "Microsoft\Windows\Application Experience\ProgramDataUpdater" /disable
-schtasks /Change /TN "Microsoft\Windows\Application Experience\StartupAppTask" /disable
-schtasks /Change /TN "Microsoft\Windows\Autochk\Proxy" /disable
-schtasks /Change /TN "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /disable
-schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\BthSQM" /disable
-schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /disable
-schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask" /disable
-schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\Uploader" /disable
-schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /disable
-schtasks /Change /TN "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /disable
-schtasks /Change /TN "Microsoft\Windows\DiskFootprint\Diagnostics" /disable
-schtasks /Change /TN "Microsoft\Windows\FileHistory\File History (maintenance mode)" /disable
-schtasks /Change /TN "Microsoft\Windows\Maintenance\WinSAT" /disable
-schtasks /Change /TN "Microsoft\Windows\PI\Sqm-Tasks" /disable
-schtasks /Change /TN "Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /disable
-schtasks /Change /TN "Microsoft\Windows\Shell\FamilySafetyMonitor" /disable
-schtasks /Change /TN "Microsoft\Windows\Shell\FamilySafetyRefresh" /disable
-schtasks /Change /TN "Microsoft\Windows\Shell\FamilySafetyUpload" /disable
-schtasks /Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /disable
-schtasks /Change /TN "Microsoft\Windows\WindowsUpdate\Automatic App Update" /disable
-schtasks /Change /TN "Microsoft\Windows\License Manager\TempSignedLicenseExchange" /disable
-schtasks /Change /TN "Microsoft\Windows\Clip\License Validation" /disable
-schtasks /Change /TN "\Microsoft\Windows\ApplicationData\DsSvcCleanup" /disable
-schtasks /Change /TN "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /disable
-schtasks /Change /TN "\Microsoft\Windows\PushToInstall\LoginCheck" /disable
-schtasks /Change /TN "\Microsoft\Windows\PushToInstall\Registration" /disable
-schtasks /Change /TN "\Microsoft\Windows\Shell\FamilySafetyMonitor" /disable
-schtasks /Change /TN "\Microsoft\Windows\Shell\FamilySafetyMonitorToastTask" /disable
-schtasks /Change /TN "\Microsoft\Windows\Shell\FamilySafetyRefreshTask" /disable
-schtasks /Change /TN "\Microsoft\Windows\Subscription\EnableLicenseAcquisition" /disable
-schtasks /Change /TN "\Microsoft\Windows\Subscription\LicenseAcquisition" /disable
-schtasks /Change /TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner" /disable
-schtasks /Change /TN "\Microsoft\Windows\Diagnosis\Scheduled" /disable
-schtasks /Change /TN "\Microsoft\Windows\NetTrace\GatherNetworkInfo" /disable
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\SettingSync\*" 
-```
-Some of these may not exist, it's fine.
+
 
 ## Last touches
 We must disable Windows Spotlight, and other "Suggestions" (literal ads).
